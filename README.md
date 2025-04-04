@@ -2,6 +2,15 @@
 
 Simple tool to extract raw opcodes from Chip-8 ROM files.
 
+## Build
+
+```bash
+mkdir build
+cd build
+cmake ..
+make
+```
+
 ## Usage
 
 ```bash
