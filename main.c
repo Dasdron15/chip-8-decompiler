@@ -1,31 +1,32 @@
 #include <stdio.h>
 #include <stdint.h>
 
-void decompile(const char* filename) {
+void decompile(const char* inputname, const char* outputname) {
     uint8_t buffer[2];
-    FILE *file = fopen(filename, "rb");
+    FILE *input = fopen(inputname, "rb");
+    FILE * output = fopen(outputname, "w");
 
-    if (file == NULL) {
+    if (input == NULL) {
         printf("Error: File cannot be opened\n");
         return;
     }
 
-    while (fread(buffer, 1, 2, file) != 0) {
+    while (fread(buffer, 1, 2, input) != 0) {
         uint16_t opcode = (buffer[0] << 8) | buffer[1];
-        printf("0x%04X\n", opcode);
+        fprintf(output, "0x%04X\n", opcode);
     }
 
-    fclose(file);
+    fclose(input);
+    fclose(output);
 }
 
 
 int main(int argc, char* argv[]) {
-    if (argc < 2) {
-        printf("Usage: ./decomp <INPUT FILE> <OUTPUT FILE>\n");
+    if (argc < 3) {
+        printf("Usage: ./decomp <INPUT_FILE> <OUTPUT_FILE>\n");
         return 1;
     }
 
-    decompile(argv[1]);
-
+    decompile(argv[1], argv[2]);
     return 0;
 }
