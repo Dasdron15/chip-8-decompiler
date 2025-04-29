@@ -6,7 +6,7 @@ void decompile(const char* inputname, const char* outputname) {
     FILE *input = fopen(inputname, "rb");
     FILE * output = fopen(outputname, "w");
 
-    if (input == NULL) {
+    if (input == NULL || output == NULL) {
         printf("Error: File cannot be opened\n");
         return;
     }
@@ -26,7 +26,8 @@ int main(int argc, char* argv[]) {
         printf("Usage: ./decomp <INPUT_FILE> <OUTPUT_FILE>\n");
         return 1;
     }
-
     decompile(argv[1], argv[2]);
+    
+    printf("File decompiled successfully!\n");
     return 0;
 }
